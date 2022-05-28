@@ -30,6 +30,10 @@ img {
     height: auto;
 }
 
+button {
+    cursor: pointer;
+}
+
 .header {
     border-bottom: 1px solid #ececec;
 }
@@ -38,8 +42,7 @@ img {
     margin-left: auto;
     margin-right: auto;        
     padding-left: 15px;
-    padding-right: 15px;
-    /* outline: 2px solid red; */
+    padding-right: 15px;    
 }
 .header .container {
     display: flex;
@@ -93,6 +96,7 @@ img {
 .contacts-item:last-child {
     margin-right: 0;
 }
+
 .nav-link {
     display: block;
     padding-top: 32px;
@@ -193,11 +197,11 @@ img {
     font-size: 16px;
     line-height: 1.88;   
     letter-spacing: 0.06em;
-    cursor: pointer;
+    
     border-radius: 4px;
     border: 0;    
 
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color var(--animation-type);
 }
 
 .button-hero:hover,
@@ -217,6 +221,7 @@ img {
     background-color: rgba(0, 0, 0, 0.2);
     
     transition: opacity var(--animation-type), visibility var(--animation-type);
+    z-index: 10;
 }
 
 .modal-window {    
@@ -227,6 +232,7 @@ img {
 
     width: 528px;
     height: 581px;
+    padding: 40px;
 
     background-color: var(--fifth-color-text);
     border-radius: 4px;   
@@ -238,15 +244,19 @@ img {
     pointer-events: none;
     visibility: hidden;
 }
-/* начальное состояние окна анимации */
+/* --------начальное состояние окна анимации-------- */
 .backdrop.is-hidden .modal-window {    
     transform: translate(-50%, -50%) scale(0.9);
     opacity: 0;
 }
-/* конечное состояние окна анимации */
+/* ---------конечное состояние окна анимации---------- */
 .backdrop .modal-window {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
+}
+
+.modal-form {
+    text-align: center;
 }
 
 .modal-btn {
@@ -256,16 +266,160 @@ img {
 
     padding: 4px;
 
+    outline: transparent;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);        
 }
 
+.modal-btn:hover,
+.modal-btn:focus {
+    fill: var(--accent-color);
+}
 
 .close-icon {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition: fill var(--animation-type);
+}
+
+.modal-header{    
+    display: block;
+    margin-bottom: 12px;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    color: #212121;
+}
+
+.modal-input {
+    position: relative;
+    
+    display: block;
+
+    margin-bottom: 10px;  
+    
+    text-align: left;
+}
+.modal-textarea {
+    display: block;
+
+    margin-bottom: 20px;
+
+    text-align: left;
+}
+
+.modal-input-label {
+   display: block;
+
+   margin-bottom: 4px;
+
+   font-size: 12px;
+   line-height: 1.17;
+   letter-spacing: 0.01em;
+   color: #757575;
+}
+
+.input-text {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 44px;
+
+    width: 100%;
+    
+    outline: transparent;
+    border: 1px solid rgba(33, 33, 33, 0.2);
+    border-radius: 4px;
+
+    transition: border-color var(--animation-type);     
+}
+
+.comment-textarea {
+    display: block;
+
+    
+    padding: 12px 16px;
+
+    width: 100%;
+
+    outline: transparent;
+    border: 1px solid rgba(33, 33, 33, 0.2);
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.17;
+    letter-spacing: 0.01em;
+    color: inherit;
+    resize: none;
+}
+
+.input-text:focus + .input-icon{
+    fill: var(--accent-color); 
+}
+
+.input-text:focus,
+.comment-textarea:focus {
+    border-color: var(--accent-color);     
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+
+    transition: fill var(--animation-type);
+} 
+
+
+
+.text-agrement {    
+    font-size: 14px;
+    line-height: 1.71;
+    letter-spacing: 0.03em;
+    color: #757575;
+}
+
+.modal-agreement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;   
+}
+
+.modal-submit {    
+    padding: 10px 55px;
+
+    width: 200px;
+    height: 50px;
+
+    background-color: var(--accent-color);
+    color: var(--fifth-color-text);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    border: none;
+
+    transition: background-color var(--animation-type);
+}
+
+.modal-submit:hover,
+.modal-submit:focus{
+    background-color: #188CE8;
+}
+
+.custom-checkbox {
+    margin-right: 8px;
+    width: 16px;
+    height: 15px;
+    border: 2px solid #000;
+    border-radius: 2px;    
+}
+
+.checkbox-original:checked+.custom-checkbox {
+    background-color: var(--accent-color);
+    background-image: url(../images/icons/icon-check.svg);
+    background-size: contain;
+    background-origin: border-box;
+    border-color: var(--accent-color);
 }
 
 /* sections -------------------------------------------------- */
@@ -515,13 +669,18 @@ img {
     align-items: baseline;
 }
 
-.footer-flex-item:not(:last-child) {
+.footer-flex-item:nth-child(1) {
     margin-right: 70px;
+}
+
+.footer-flex-item:last-child {
+    margin-left: auto;
 }
 
 .footer-join {
     margin-bottom: 20px;
 
+    font-weight: 700;
     font-size: 14px;
     line-height: 1.14;    
     text-transform: uppercase;
@@ -559,6 +718,47 @@ img {
     transition: color var(--animation-type);
 }
 
+.footer-form-email {    
+    margin-right: 12px;
+    padding-top: 15px ;
+    padding-bottom: 15px;
+    padding-left: 16px;
+    
+    width: 358px;
+    background-color: inherit;    
+    line-height: 1.25;   
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.form-sign-up {
+    display: flex;
+}
+.footer-form-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 200px;
+    height: 50px;
+
+    font-weight: 700;
+  /*  font-size: 16px; */
+    line-height: 1.88;        
+    letter-spacing: 0.06em;
+    color: var(--fifth-color-text);
+    background-color: var(--accent-color);
+    border-radius: 4px;
+    
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border: none;    
+}
+
+.footer-form-btn > .sign-up {
+    margin-right: 10px;
+}
 /* portfolio*/
 
 .portfolio {
@@ -589,7 +789,7 @@ img {
     font-size: 16px;
     line-height: 1.62;    
     text-align: center;    
-    cursor: pointer;
+    
     border-radius: 4px;
     border: 0;    
 
